@@ -1,0 +1,19 @@
+services:
+  vaapi:
+    container_name: vaapi
+    build: .
+    restart: always
+    network_mode: host
+    volumes:
+      - ./config:/config
+      - ./media:/media
+      - /usr/lib/wsl:/usr/lib/wsl
+    devices:
+      - /dev/dxg:/dev/dxg
+      - /dev/dri/card0:/dev/dri/card0
+      - /dev/dri/renderD128:/dev/dri/renderD128
+    environment:
+      - LIBVA_DRIVER_NAME=d3d12
+      - LD_LIBRARY_PATH=/usr/lib/wsl/lib
+    privileged: true
+    entrypoint: sleep 1000000
